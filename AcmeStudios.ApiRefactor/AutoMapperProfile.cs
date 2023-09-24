@@ -10,6 +10,7 @@ namespace AcemStudios.ApiRefactor
             CreateMap<StudioItem, GetStudioItemDto>();
             CreateMap<AddStudioItemDto, StudioItem>();
             CreateMap<StudioItem, GetStudioItemHeaderDto>();
+
         }
     }
 }

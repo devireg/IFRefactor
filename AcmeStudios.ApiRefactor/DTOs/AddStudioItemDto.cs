@@ -6,6 +6,7 @@ namespace AcemStudios.ApiRefactor.DTOs
     public class AddStudioItemDto
     {
         public DateTime Acquired { get; set; }
+
         public DateTime? Sold { get; set; } = null;
         [Required]
         public string Name { get; set; }

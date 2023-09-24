@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
+using AcemStudios.ApiRefactor.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace AcemStudios.ApiRefactor
 {
@@ -18,18 +21,27 @@ namespace AcemStudios.ApiRefactor
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Cont>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("StudioConnection"));
+            });
             services.AddCors(options =>
              {
                  options.AddPolicy("AllowMyOrigin",
-                 builder => builder.WithOrigins("http://localhost:4200")
-                 .AllowAnyHeader()
-                 .AllowAnyMethod()
-                 );
+                 builder => builder.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
              });
 
             services.AddControllers();
 
-            services.AddSwaggerGen();
+            //services.AddSwaggerGen();
+
+            //Updating the swagger with API version -Devi
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+            });
 
             services.AddAutoMapper(typeof(Startup));
         }
@@ -55,6 +67,13 @@ namespace AcemStudios.ApiRefactor
             {
                 endpoints.MapControllers();
                 endpoints.MapControllers().RequireCors("AllowMyOrigin");
+            });
+            //UseSwagger() -Devi
+            app.UseSwagger();
+            //UseSwaggerUI -Devi
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
             });
         }
     }

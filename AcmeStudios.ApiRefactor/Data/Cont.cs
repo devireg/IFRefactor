@@ -8,6 +8,7 @@ namespace AcemStudios.ApiRefactor.Data
         public DbSet<StudioItemType> StudioItemTypes { get; set; }
         public Cont(DbContextOptions<Cont> options) : base(options) { }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StudioItem>()

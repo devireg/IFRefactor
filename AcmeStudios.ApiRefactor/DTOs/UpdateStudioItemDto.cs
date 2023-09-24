@@ -9,6 +9,7 @@ namespace AcemStudios.ApiRefactor.DTOs
         public DateTime Acquired { get; set; } = new DateTime(2020, 08, 04);
         public DateTime? Sold { get; set; } = null;
         [Required]
+
         public string Name { get; set; } = "DSI Mopho x4";
         [Required]
         public string Description { get; set; } = "Dave Smith Instruments analog poly";
